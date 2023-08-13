@@ -32,6 +32,8 @@ body {
   word-break: break-all !important;
   min-width:282px;
   max-width:282px;
+  max-height: 538px;
+  overflow: auto;
 }
 .task{
   word-break: break-all !important;

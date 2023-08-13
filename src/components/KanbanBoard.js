@@ -11,7 +11,8 @@ class KanbanBoard extends React.Component{
         inProgressTask:[],
         finishedTask:[],
         id:JSON.parse(localStorage.getItem('id')),
-        year: new Date().getFullYear()
+        year: new Date().getFullYear(),
+        changeDate:new Date()
     }
     componentDidMount() {
         this.handleUpdate()
