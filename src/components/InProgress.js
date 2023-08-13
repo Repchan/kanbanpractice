@@ -91,32 +91,38 @@ class InProgress extends React.Component{
                         <div className={'taskArea'} key={index}>
                             {this.state.clickedTask === index ? (
                                 <div className={'bigTask'}>
-                                    <p>{item.name}</p>
-                                    {this.state.editMode ? (
-                                        <form onSubmit={this.handleSubmitForm}>
-                                            <input
-                                                name={'edit'}
-                                                type={'text'}
-                                                value={this.state.descriptionTask}
-                                                onChange={this.handleEditDescription}
-                                            />
-                                            <button>Edit</button>
-                                        </form>
-                                    ) : (
-                                        <p>{item.description}</p>
-                                    )}
-                                    {this.state.disabledEdit ? (
-                                        <button onClick={() => this.setState({ disabledEdit: false, editMode: true })}>
-                                            Редактировать описание
+                                    <div className={'bigTaskContainer'}>
+                                        <p className={'bigTaskName'}>{item.name}</p>
+                                        {this.state.editMode ? (
+                                            <form onSubmit={this.handleSubmitForm}>
+                                                <input
+                                                    className={'input editInput'}
+                                                    name={'edit'}
+                                                    type={'text'}
+                                                    value={this.state.descriptionTask}
+                                                    onChange={this.handleEditDescription}
+                                                />
+                                                <button className={'submitButton'}>Edit</button>
+                                            </form>
+                                        ) : (
+                                            <p className={'bigTaskDescription'}>{item.description}</p>
+                                        )}
+                                        {this.state.disabledEdit ? (
+                                            <button className={'submitButton modified'} onClick={() => this.setState({ disabledEdit: false, editMode: true })}>
+                                                Edit description
+                                            </button>
+                                        ) : (
+                                            <button className={'submitButton'} disabled={this.state.disabledEdit} onClick={() => this.setState({ disabledEdit: true, editMode: false })}>
+                                                Cancel
+                                            </button>
+                                        )}
+                                        <button className={'close'} onClick={() => this.setState({ clickedTask: null })}>
+                                            <div className={'imgGroup'}>
+                                                <img src={'/images/Line 2.svg'}></img>
+                                                <img src={'/images/Line 2.svg'}></img>
+                                            </div>
                                         </button>
-                                    ) : (
-                                        <button disabled={this.state.disabledEdit} onClick={() => this.setState({ disabledEdit: true, editMode: false })}>
-                                            Отменить
-                                        </button>
-                                    )}
-                                    <button onClick={() => this.setState({ clickedTask: null })}>
-                                        Close
-                                    </button>
+                                    </div>
                                 </div>
                             ) : (
                                 <div

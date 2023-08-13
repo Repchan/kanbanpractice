@@ -3,9 +3,14 @@
   padding: 0;
   box-sizing: border-box;
 }
+body {
+  overflow-x: hidden; /* Предотвращает горизонтальную прокрутку */
+}
 .container{
-  width:1235px;
+  width:100%;
+  max-width:1235px;
   margin:0 auto;
+  position: relative;
 }
 .kanbanContainer{
   background-color: #0079BF;
@@ -22,9 +27,15 @@
   padding: 12px 12px 8px 12px;
   background-color: #EBECF0;
   border-radius: 5px;
-  width:100%;
+  flex-grow:1;
   word-wrap: normal;
-  word-break: break-all;
+  word-break: break-all !important;
+  min-width:282px;
+  max-width:282px;
+}
+.task{
+  word-break: break-all !important;
+  word-wrap: normal;
 }
 .kanbanCard h2{
   line-height: 17px;
@@ -35,6 +46,7 @@
 .menu{
   display:flex;
   flex-direction: column;
+  z-index:2;
 }
 .header{
   background-color: #0067A3;
@@ -52,15 +64,40 @@
   line-height: 33px;
   color:white;
 }
+.bigTaskContainer{
+  background-color: white;
+  vertical-align: center;
+  height:100%;
+  border-radius: 5px;
+  padding: 22px 28px;
+  position: relative;
+}
 .bigTask{
+  padding:20px 0 0 0;
   position: absolute;
   left: 0;
   top:0;
   width:100%;
   height:100%;
-  background-color: white;
-  border: 1px solid black;
-  vertical-align: center;
+  cursor: default;
+}
+.bigTaskName{
+  font-size: 24px;
+  line-height: 28px;
+}
+.bigTaskDescription{
+  width:621px;
+  word-wrap: normal;
+  font-size: 18px;
+  line-height: 21px;
+  margin-top:35px;
+  margin-left:2px;
+}
+.close{
+  position: absolute;
+  right:40px;
+  border: none;
+  top:13px;
 }
 .avatarImg{
   background-color: white;
@@ -86,7 +123,7 @@
 .menu{
   position: absolute;
   background-color: white;
-  top:41px;
+  top:46px;
   border-radius: 5px;
   font-size: 14px;
   font-family: 'Roboto', sans-serif;
@@ -96,6 +133,24 @@
   height: 60px;
   right: 0;
 }
+.menu::after {
+  content: ""; /* Обязательно для задания псевдоэлемента ::after */
+  position: absolute;
+  top:-5px;
+  right:44px;
+  display: block; /* Сделаем изображение блочным элементом */
+  background-image: url('/public/images/Rectangle 27.svg'); /* Путь к вашему изображению */
+  background-size: cover; /* Размер изображения */
+  width: 11px; /* Ширина изображения */
+  min-height: 11px; /* Высота изображения */
+  /* Дополнительные стили, если необходимо */
+}
+
+
+
+
+
+
 .taskArea{
   background-color: white;
   padding: 7px 9px 7px 8px;
@@ -188,4 +243,52 @@
 }
 .submitButtonDisabled{
   background-color: #5E6C84;
+}
+.close{
+  background: none;
+  cursor: pointer;
+}
+.close .imgGroup img:nth-child(2){
+  transform: rotate(-90deg);
+}
+.imgGroup{
+  position: relative;
+}
+.close .imgGroup img{
+  position: absolute;
+  left:0;
+  top:0;
+}
+.editInput{
+  border:1px solid black;
+  margin-top:35px;
+}
+.modified{
+  width:auto;
+}
+
+@media (width < 1235px) {
+  .kanbanContainer .container{
+    flex-direction: column;
+    align-items: center;
+    row-gap: 50px;
+  }
+  .kanbanCard{
+    width:100%;
+    max-width:100%;
+  }
+  .kanbanCard:last-child{
+    margin-bottom: 50px;
+  }
+}
+@media (width < 800px) {
+  .footer{
+    display: none;
+  }
+  .logo{
+    display: none;
+  }
+  .header .container{
+    justify-content: flex-end;
+  }
 }

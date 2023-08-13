@@ -15,13 +15,11 @@ class Backlog extends React.Component{
         editMode: false
     }
     static getDerivedStateFromProps(nextProps, prevState) {
-        // Выставляем значение из пропса в состояние компонента
         if (nextProps.arr !== prevState.taskArr) {
             return {
                 taskArr: nextProps.arr,
             };
         }
-        // Возвращаем null, если не требуется обновление состояния
         return null;
     }
      componentDidMount() {
@@ -37,10 +35,8 @@ class Backlog extends React.Component{
         const id = this.state.id + 1;
 
         if (this.state.editMode) {
-            // Обновляем описание задачи
             arr[this.state.clickedTask].description = this.state.descriptionTask;
         } else {
-            // Добавляем новую задачу
             arr.push({ name: this.state.description, id: id, description: this.state.descriptionTask });
         }
 
@@ -50,7 +46,7 @@ class Backlog extends React.Component{
             disabled: true,
             clicked: false,
             id: id,
-            editMode: false, // Выключаем режим редактирования после отправки
+            editMode: false,
         }, () => {
             localStorage.setItem('Backlog', JSON.stringify(this.state.taskArr))
             localStorage.setItem('id',JSON.stringify(this.state.id))
@@ -84,33 +80,41 @@ class Backlog extends React.Component{
                     <div className={'taskArea'} key={index}>
                         {this.state.clickedTask === index ? (
                             <div className={'bigTask'}>
-                                <p>{item.name}</p>
-                                {this.state.editMode ? (
-                                    <form onSubmit={this.handleSubmitForm}>
-                                        <input
-                                            name={'edit'}
-                                            type={'text'}
-                                            value={this.state.descriptionTask}
-                                            onChange={this.handleEditDescription}
-                                        />
-                                        <button>Edit</button>
-                                    </form>
-                                ) : (
-                                    <p>{item.description}</p>
-                                )}
-                                {this.state.disabledEdit ? (
-                                    <button onClick={() => this.setState({ disabledEdit: false, editMode: true })}>
-                                        Редактировать описание
-                                    </button>
-                                ) : (
-                                    <button disabled={this.state.disabledEdit} onClick={() => this.setState({ disabledEdit: true, editMode: false })}>
-                                        Отменить
-                                    </button>
-                                )}
+                                <div className={'bigTaskContainer'}>
+                                    <p className={'bigTaskName'}>{item.name}</p>
+                                    {this.state.editMode ? (
+                                        <form onSubmit={this.handleSubmitForm}>
+                                            <input
+                                                className={'input editInput'}
+                                                name={'edit'}
+                                                type={'text'}
+                                                value={this.state.descriptionTask}
+                                                onChange={this.handleEditDescription}
+                                            />
+                                            <button className={'submitButton'}>Edit</button>
+                                        </form>
+                                    ) : (
+                                        <p className={'bigTaskDescription'}>{item.description}</p>
+                                    )}
+                                    {this.state.disabledEdit ? (
+                                        <button  className={'submitButton modified'} onClick={() => this.setState({ disabledEdit: false, editMode: true })}>
+                                            Edit description
+                                        </button>
+                                    ) : (
+                                        <button className={'submitButton'} disabled={this.state.disabledEdit} onClick={() => this.setState({ disabledEdit: true, editMode: false })}>
+                                            Cancel
+                                        </button>
+                                    )}
 
-                                <button onClick={() => this.setState({ clickedTask: null })}>
-                                    Close
-                                </button>
+                                    <button className={'close'} onClick={() => this.setState({ clickedTask: null })}>
+                                        <div className={'imgGroup'}>
+                                            <img src={'/images/Line 2.svg'}></img>
+                                            <img src={'/images/Line 2.svg'}></img>
+                                        </div>
+
+                                    </button>
+                                </div>
+
                             </div>
                         ) : (
                             <div

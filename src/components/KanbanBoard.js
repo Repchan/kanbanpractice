@@ -3,7 +3,6 @@ import Backlog from "./Backlog";
 import Finished from "./Finished";
 import InProgress from "./InProgress";
 import Ready from "./Ready";
-import TaskPage from "./TaskPage";
 import Profile from "./Profile";
 class KanbanBoard extends React.Component{
     state = {
@@ -15,36 +14,7 @@ class KanbanBoard extends React.Component{
         year: new Date().getFullYear()
     }
     componentDidMount() {
-        const backlogArr = localStorage.getItem('Backlog');
-        const readyArr = localStorage.getItem('Ready');
-        const inProgressArr = localStorage.getItem('InProgress');
-        const finishedArr = localStorage.getItem('Finished');
-        const id = localStorage.getItem('id')
-        if(backlogArr){
-            this.setState({
-                backlogTask:JSON.parse(backlogArr)
-            })
-        }
-        if(readyArr){
-            this.setState({
-                readyTask:JSON.parse(readyArr)
-            })
-        }
-        if(inProgressArr){
-            this.setState({
-                inProgressTask:JSON.parse(inProgressArr),
-            })
-        }
-        if(finishedArr){
-            this.setState({
-                finishedTask:JSON.parse(finishedArr)
-            })
-        }
-        if(id){
-            this.setState({
-                id:JSON.parse(id)
-            })
-        }
+        this.handleUpdate()
     }
 handleUpdate = () =>{
     const backlogArr = localStorage.getItem('Backlog');
